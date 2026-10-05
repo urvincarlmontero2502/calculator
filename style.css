@@ -1,0 +1,434 @@
+/* Reset and Global Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* App Wrapper to hold Calculator and History side-by-side */
+.app-container {
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+  align-items: stretch;
+}
+
+/* Calculator Container (Background) */
+.calculator {
+  position: relative;
+  width: 360px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  padding: 24px;
+}
+
+/* Calculation History Box */
+.history-container {
+  position: relative;
+  width: 260px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.history-container h3 {
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.no-history {
+  text-align: center;
+  color: #64748b;
+  margin-top: 40px;
+  font-size: 0.85rem;
+}
+
+.history-item {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* History Lock Overlay for Free Plan - Fully Opaque & High Z-Index */
+.history-lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0f172a; /* 100% solid background matching the theme */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.history-lock-overlay.hidden {
+  display: none;
+}
+
+.lock-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.lock-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.lock-content p {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.unlock-btn {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  border: none;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.unlock-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Usage Indicator Badge */
+.usage-badge {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.usage-badge span {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+/* Display Container */
+.display-container {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.display {
+  color: #38bdf8;
+  font-size: 2.3rem;
+  font-weight: 300;
+  text-align: right;
+  letter-spacing: 1.5px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Buttons Grid Layout */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  background: rgba(51, 65, 85, 0.4);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 16px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  background: rgba(71, 85, 105, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.action {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.btn.operator {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.15);
+  font-weight: 500;
+}
+
+.btn.equals {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  font-weight: 600;
+  border: none;
+  grid-row: span 2;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+.btn.zero {
+  grid-column: span 3;
+}
+
+/* Subscription Modal Overlay */
+.paywall-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(7, 11, 20, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.paywall-modal.hidden {
+  display: none;
+}
+
+.modal-card-container {
+  position: relative;
+  background: rgba(13, 19, 32, 0.96);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 28px;
+  padding: 45px 40px;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 480px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(51, 65, 85, 0.4);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.modal-content-inner h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.paywall-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.plan-card {
+  background: rgba(20, 29, 48, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.plan-card.active-card {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 58, 138, 0.35) 0%,
+    rgba(20, 29, 48, 0.95) 100%
+  );
+  border: 1px solid #38bdf8;
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+}
+
+.pack-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.pack-profit {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+.profit-label {
+  display: block;
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.metric {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-title {
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.metric-val {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.plan-btn {
+  margin-top: 16px;
+  background: rgba(51, 65, 85, 0.4);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.plan-btn:hover {
+  background: rgba(71, 85, 105, 0.7);
+}
+
+.plan-btn.active-btn {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 750px) {
+  .app-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .history-container {
+    width: 360px;
+    height: 180px;
+  }
+  .modal-card-container {
+    max-width: 90vw;
+    padding: 30px 20px;
+  }
+  .plans-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

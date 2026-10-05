@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator Pro - SaaS Edition</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Main App Layout Wrapper (Calculator + History Sidebar) -->
+    <div class="app-container">
+      <!-- Calculator Container -->
+      <div class="calculator">
+        <!-- Usage Indicator Badge -->
+        <div class="usage-badge">
+          Free trial uses left: <span id="uses-left">3</span>/3
+        </div>
+
+        <!-- Display Area -->
+        <div class="display-container">
+          <div class="display">0</div>
+        </div>
+
+        <!-- Calculator Buttons -->
+        <div class="buttons">
+          <button class="btn action">C</button>
+          <button class="btn operator">÷</button>
+          <button class="btn operator">×</button>
+          <button class="btn operator">−</button>
+
+          <button class="btn number">7</button>
+          <button class="btn number">8</button>
+          <button class="btn number">9</button>
+          <button class="btn operator">+</button>
+
+          <button class="btn number">4</button>
+          <button class="btn number">5</button>
+          <button class="btn number">6</button>
+          <button class="btn equals">=</button>
+
+          <button class="btn number">1</button>
+          <button class="btn number">2</button>
+          <button class="btn number">3</button>
+          <button class="btn number">.</button>
+
+          <button class="btn number zero">0</button>
+        </div>
+      </div>
+
+      <!-- Calculation History Sidebar Box -->
+      <div class="history-container">
+        <h3>Calculation History</h3>
+        <div class="history-list" id="history-list">
+          <span class="no-history">No history yet...</span>
+        </div>
+
+        <!-- Lock Overlay for Free Plan -->
+        <div class="history-lock-overlay hidden" id="history-lock">
+          <div class="lock-content">
+            <span class="lock-icon">🔒</span>
+            <p>History locked on Free Plan</p>
+            <button class="unlock-btn" id="open-modal-btn">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Modal Overlay -->
+    <div class="paywall-modal hidden">
+      <div class="modal-card-container">
+        <!-- Exit / Close Button (Defaults to Free Plan) -->
+        <button class="modal-close-btn" id="modal-exit">&times;</button>
+
+        <!-- Modal Content Inner -->
+        <div class="modal-content-inner">
+          <h2>CHOOSE PLAN</h2>
+          <p class="paywall-subtitle">
+            Select your subscription tier to continue using Calculator Pro:
+          </p>
+
+          <div class="plans-container">
+            <!-- 1. Free Pack -->
+            <div class="plan-card" data-plan="free">
+              <span class="pack-name">FREE PACK</span>
+              <div class="pack-profit">
+                $0 <span class="profit-label">Forever</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">Operations</span>
+                <span class="metric-val">+ Addition Only</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">History Log</span>
+                <span class="metric-val">Locked 🔒</span>
+              </div>
+              <button class="plan-btn">Select Plan</button>
+            </div>
+
+            <!-- 2. Basic Pack -->
+            <div class="plan-card" data-plan="basic">
+              <span class="pack-name">BASIC PACK</span>
+              <div class="pack-profit">
+                $4.99 <span class="profit-label">1 Month</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">Operations</span>
+                <span class="metric-val">All Standard (+, -, ×, ÷)</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">History Log</span>
+                <span class="metric-val">Last 5 Items</span>
+              </div>
+              <button class="plan-btn">Select Plan</button>
+            </div>
+
+            <!-- 3. Ultimate Pack -->
+            <div class="plan-card active-card" data-plan="ultimate">
+              <span class="pack-name">ULTIMATE</span>
+              <div class="pack-profit">
+                $9.99 <span class="profit-label">Monthly</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">Operations</span>
+                <span class="metric-val">All Core + Advanced</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">History Log</span>
+                <span class="metric-val">Full History Log</span>
+              </div>
+              <button class="plan-btn active-btn">Select Plan</button>
+            </div>
+
+            <!-- 4. VIP Pack -->
+            <div class="plan-card" data-plan="vip">
+              <span class="pack-name">VIP PACK</span>
+              <div class="pack-profit">
+                $29.99 <span class="profit-label">Lifetime</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">Access</span>
+                <span class="metric-val">Lifetime Access</span>
+              </div>
+              <div class="metric">
+                <span class="metric-title">History Log</span>
+                <span class="metric-val">Unlimited Sync</span>
+              </div>
+              <button class="plan-btn">Select Plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
