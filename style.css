@@ -10,24 +10,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   position: relative;
-  overflow: hidden;
+  padding: 16px;
 }
 
-/* App Wrapper to hold Calculator and History side-by-side */
+/* App Wrapper to hold Calculator and History side-by-side on desktop, stack on mobile */
 .app-container {
   display: flex;
   gap: 20px;
   z-index: 1;
   align-items: stretch;
+  width: 100%;
+  max-width: 660px;
+  justify-content: center;
 }
 
-/* Calculator Container (Background) */
+/* Calculator Container */
 .calculator {
   position: relative;
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -36,30 +40,33 @@ body {
   box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  padding: 24px;
+  padding: 20px;
+  flex-shrink: 0;
 }
 
 /* Calculation History Box */
 .history-container {
   position: relative;
-  width: 260px;
+  width: 100%;
+  max-width: 280px;
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .history-container h3 {
   color: #f8fafc;
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   text-align: center;
   letter-spacing: 0.5px;
 }
@@ -69,9 +76,10 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-size: 0.9rem;
+  gap: 8px;
+  font-size: 0.88rem;
   color: #94a3b8;
+  max-height: 320px;
 }
 
 .no-history {
@@ -98,7 +106,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0f172a; /* 100% solid background matching the theme */
+  background: #0f172a; /* 100% solid background to fully cover history numbers */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,12 +155,12 @@ body {
 /* Usage Indicator Badge */
 .usage-badge {
   text-align: center;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: #94a3b8;
   background: rgba(15, 23, 42, 0.6);
   padding: 6px 12px;
   border-radius: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
@@ -166,14 +174,14 @@ body {
   background: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 16px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .display {
   color: #38bdf8;
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 300;
   text-align: right;
   letter-spacing: 1.5px;
@@ -185,15 +193,15 @@ body {
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn {
   background: rgba(51, 65, 85, 0.4);
   color: #f8fafc;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 16px;
-  font-size: 1.15rem;
+  padding: 14px;
+  font-size: 1.1rem;
   font-weight: 400;
   border-radius: 14px;
   cursor: pointer;
@@ -250,7 +258,8 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 16px;
+  overflow-y: auto;
 }
 
 .paywall-modal.hidden {
@@ -262,10 +271,9 @@ body {
   background: rgba(13, 19, 32, 0.96);
   border: 1px solid rgba(56, 189, 248, 0.2);
   border-radius: 28px;
-  padding: 45px 40px;
+  padding: 35px 25px;
   width: 100%;
-  max-width: 1000px;
-  min-height: 480px;
+  max-width: 950px;
   box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.75),
     inset 0 1px 1px rgba(255, 255, 255, 0.05);
@@ -276,14 +284,14 @@ body {
 
 .modal-close-btn {
   position: absolute;
-  top: 20px;
-  right: 24px;
+  top: 16px;
+  right: 18px;
   background: rgba(51, 65, 85, 0.4);
   color: #94a3b8;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 1.4rem;
-  width: 36px;
-  height: 36px;
+  font-size: 1.3rem;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -299,32 +307,32 @@ body {
 }
 
 .modal-content-inner h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1.5px;
   color: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-align: center;
 }
 
 .paywall-subtitle {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #94a3b8;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .plans-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 14px;
 }
 
 .plan-card {
   background: rgba(20, 29, 48, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
-  padding: 24px 16px;
+  padding: 20px 12px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -333,7 +341,7 @@ body {
 }
 
 .plan-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: rgba(56, 189, 248, 0.4);
 }
 
@@ -348,24 +356,24 @@ body {
 }
 
 .pack-name {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 1px;
   color: #94a3b8;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   display: block;
 }
 
 .pack-profit {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #38bdf8;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .profit-label {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: #64748b;
   font-weight: 400;
   margin-top: 4px;
@@ -373,30 +381,30 @@ body {
 
 .metric {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 10px 0;
+  padding: 8px 0;
   display: flex;
   flex-direction: column;
 }
 
 .metric-title {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: #64748b;
   margin-bottom: 2px;
 }
 
 .metric-val {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #e2e8f0;
 }
 
 .plan-btn {
-  margin-top: 16px;
+  margin-top: 14px;
   background: rgba(51, 65, 85, 0.4);
   color: #f8fafc;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 10px;
-  font-size: 0.8rem;
+  padding: 8px;
+  font-size: 0.78rem;
   font-weight: 500;
   border-radius: 20px;
   cursor: pointer;
@@ -415,20 +423,49 @@ body {
   box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
 }
 
-@media (max-width: 750px) {
+/* Responsive Breakpoint for Mobile and Tablets */
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    padding: 12px;
+    height: auto;
+    min-height: 100vh;
+  }
+
   .app-container {
     flex-direction: column;
     align-items: center;
+    gap: 16px;
   }
+
+  .calculator,
   .history-container {
-    width: 360px;
-    height: 180px;
+    max-width: 100%;
+    width: 100%;
   }
-  .modal-card-container {
-    max-width: 90vw;
-    padding: 30px 20px;
+
+  .history-container {
+    height: 200px;
   }
+
+  .history-list {
+    max-height: 110px;
+  }
+
   .plans-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .modal-card-container {
+    padding: 25px 15px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .plans-container {
+    grid-template-columns: 1fr;
   }
 }
